@@ -1,0 +1,106 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+public class GameBoard {
+   private char[][] board;
+   private int size;
+
+   public GameBoard(int var1) {
+      this.size = var1;
+      this.board = new char[var1][var1];
+
+      for(int var2 = 0; var2 < var1; ++var2) {
+         for(int var3 = 0; var3 < var1; ++var3) {
+            this.board[var2][var3] = ' ';
+         }
+      }
+
+   }
+
+   public void displayBoard() {
+      for(int var1 = 0; var1 < this.size; ++var1) {
+         for(int var2 = 0; var2 < this.size; ++var2) {
+            System.out.print(this.board[var1][var2]);
+            if (var2 < this.size - 1) {
+               System.out.print("|");
+            }
+         }
+
+         System.out.println();
+         if (var1 < this.size - 1) {
+            System.out.println("-".repeat(this.size * 2 - 1));
+         }
+      }
+
+   }
+
+   public boolean makeMove(int var1, int var2, char var3) {
+      if (var1 >= 0 && var1 < this.size && var2 >= 0 && var2 < this.size && this.board[var1][var2] == ' ') {
+         this.board[var1][var2] = var3;
+         return true;
+      } else {
+         System.out.println("Invalid move. Try again.");
+         return false;
+      }
+   }
+
+   public boolean checkWinner(char var1) {
+      for(int var2 = 0; var2 < this.size; ++var2) {
+         if (this.checkRow(var2, var1) || this.checkColumn(var2, var1)) {
+            return true;
+         }
+      }
+
+      return this.checkDiagonal(var1) || this.checkAntiDiagonal(var1);
+   }
+
+   private boolean checkRow(int var1, char var2) {
+      for(int var3 = 0; var3 < this.size; ++var3) {
+         if (this.board[var1][var3] != var2) {
+            return false;
+         }
+      }
+
+      return true;
+   }
+
+   private boolean checkColumn(int var1, char var2) {
+      for(int var3 = 0; var3 < this.size; ++var3) {
+         if (this.board[var3][var1] != var2) {
+            return false;
+         }
+      }
+
+      return true;
+   }
+
+   private boolean checkDiagonal(char var1) {
+      for(int var2 = 0; var2 < this.size; ++var2) {
+         if (this.board[var2][var2] != var1) {
+            return false;
+         }
+      }
+
+      return true;
+   }
+
+   private boolean checkAntiDiagonal(char var1) {
+      for(int var2 = 0; var2 < this.size; ++var2) {
+         if (this.board[var2][this.size - 1 - var2] != var1) {
+            return false;
+         }
+      }
+
+      return true;
+   }
+
+   public boolean isFull() {
+      for(int var1 = 0; var1 < this.size; ++var1) {
+         for(int var2 = 0; var2 < this.size; ++var2) {
+            if (this.board[var1][var2] == ' ') {
+               return false;
+            }
+         }
+      }
+
+      return true;
+   }
+}
